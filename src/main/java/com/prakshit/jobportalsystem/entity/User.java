@@ -31,4 +31,7 @@ public class User {
 
     @Column(nullable = false , updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private EmployerProfile employerProfile;
 }

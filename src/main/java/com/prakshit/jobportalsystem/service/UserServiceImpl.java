@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
 
        List<User> userList =  userRepository.findAll(); // fill all the users
 
-       List<UserResponseDTO> userResponseList = new ArrayList<>();
+       List<UserResponseDTO> userResponseList = new ArrayList<>();  //creating empty response array list
 
        for(User user : userList){
            userResponseList.add(UserEntityDTOMapper.convertUserToUserResponseDTO(user)); //convert to user response

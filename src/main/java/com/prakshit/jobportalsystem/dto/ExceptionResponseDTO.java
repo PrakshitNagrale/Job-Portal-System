@@ -11,12 +11,12 @@ public class ExceptionResponseDTO {
 
     private String message;
     private int status;
-    LocalDateTime localDateTime;
+    LocalDateTime timestamp = LocalDateTime.now();
 
 
-    public ExceptionResponseDTO(String message, int status, LocalDateTime localDateTime) {
+    public ExceptionResponseDTO(String message, int status) {
         this.message = message;
         this.status = status;
-        this.localDateTime = localDateTime;
+
     }
 }

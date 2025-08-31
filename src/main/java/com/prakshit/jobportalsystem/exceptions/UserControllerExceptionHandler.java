@@ -9,7 +9,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class UserControllerExceptionHandler {
     public ResponseEntity<ExceptionResponseDTO> handleEmailAlreadyExistsException(EmailAlreadyExistsException exception){
 
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
-                exception.getMessage(),409, LocalDateTime.now());
+                exception.getMessage(),409);
 
         return new ResponseEntity<>(exceptionResponseDTO , HttpStatus.CONFLICT);
     }
@@ -46,7 +45,7 @@ public class UserControllerExceptionHandler {
 
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
 
-                message, HttpStatus.BAD_REQUEST.value(),LocalDateTime.now() );
+                message, HttpStatus.BAD_REQUEST.value());
 
         return new ResponseEntity<>(exceptionResponseDTO,HttpStatus.BAD_REQUEST);
     }
@@ -55,9 +54,20 @@ public class UserControllerExceptionHandler {
     public ResponseEntity<ExceptionResponseDTO> handleResourceNotFoundException(ResourceNotFoundException exception){
 
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
-                exception.getMessage(),HttpStatus.NOT_FOUND.value(), LocalDateTime.now() );
+                exception.getMessage(),HttpStatus.NOT_FOUND.value());
 
         return new ResponseEntity<>(exceptionResponseDTO ,HttpStatus.NOT_FOUND);
+    }
+
+
+    //to handle EmployerProfileAlreadyExistsException
+    @ExceptionHandler(ProfileAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponseDTO> handleProfileAlreadyExists(ProfileAlreadyExistsException exception){
+
+        ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
+                exception.getMessage(),HttpStatus.CONFLICT.value() );
+
+        return new ResponseEntity<>(exceptionResponseDTO,HttpStatus.CONFLICT);
     }
 
 

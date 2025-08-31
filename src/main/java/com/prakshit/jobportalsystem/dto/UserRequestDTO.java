@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class UserRequestDTO {
 
-    @NotBlank(message = "Name is required") // to ensure that the name field is not blank
+    @NotBlank(message = "Name is required") //@NotBlank ->  it comes when we add valid dependency,& @Valid annotation in controller, to ensure that the name field is not blank
     private String name;
 
     @Email(message = "Invalid email format")
