@@ -10,11 +10,8 @@ import java.time.LocalDateTime;
 @Table(name="users")
 @Getter
 @Setter
-public class User {
+public class User extends BaseModel{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
 
     @Column(nullable = false)
     private String name;
@@ -28,9 +25,6 @@ public class User {
     @Enumerated(EnumType.STRING)  //to store enum in db
     @Column(nullable = false)
     private UserRole  userRole;
-
-    @Column(nullable = false , updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private EmployerProfile employerProfile;

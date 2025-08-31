@@ -4,16 +4,17 @@ import com.prakshit.jobportalsystem.dto.EmployerProfileRequestDTO;
 import com.prakshit.jobportalsystem.dto.EmployerProfileResponseDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface EmployerProfileService {
 
-    EmployerProfileResponseDTO createEmployerProfile(Long userId,EmployerProfileRequestDTO requestDTO);
+    EmployerProfileResponseDTO createEmployerProfile(UUID userId, EmployerProfileRequestDTO requestDTO);
 
-    EmployerProfileResponseDTO getEmployerProfileByUserId(Long userId);
+    EmployerProfileResponseDTO getEmployerProfileByUserId(UUID userId);
 
     List<EmployerProfileResponseDTO> getAllEmployerProfile();
 
-    EmployerProfileResponseDTO updateEmployerProfile(Long userId, EmployerProfileRequestDTO requestDTO);
+    EmployerProfileResponseDTO updateEmployerProfile(UUID userId, EmployerProfileRequestDTO requestDTO);
 
-    void deleteEmployerProfile(Long userId);
+    void deleteEmployerProfile(UUID userId);
 }

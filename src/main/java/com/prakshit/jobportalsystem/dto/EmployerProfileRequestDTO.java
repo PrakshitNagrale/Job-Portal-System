@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class EmployerProfileRequestDTO {
@@ -21,9 +23,6 @@ public class EmployerProfileRequestDTO {
     @NotBlank(message = "Contact number is required")
     @Size(max = 20, message = "Contact Number should not be greater than 20 characters")
     private String contactNumber;
-
-    @NotNull(message = "User Id is required to create Employer Profile")
-    private Long userId;
 
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDTO getUserById(Long id) {
+    public UserResponseDTO getUserById(UUID id) {
 
 //        Optional<User> optionalUser = userRepository.findById(id);
 //        if (optionalUser.isEmpty()) {
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) { //to update user
+    public UserResponseDTO updateUser(UUID id, UserRequestDTO userRequestDTO) { //to update user
 
        // getting user,if id does not exist throw exception
         User user =  userRepository.findById(id)
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
 
         //find the user is present or not
         User user = userRepository.findById(id)

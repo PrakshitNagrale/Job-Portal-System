@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/employers")
@@ -22,7 +23,7 @@ public class EmployerProfileController {
 
 
     @PostMapping("/{userId}")
-    public ResponseEntity<EmployerProfileResponseDTO> create(@PathVariable("userId") Long userId,
+    public ResponseEntity<EmployerProfileResponseDTO> create(@PathVariable("userId") UUID userId,
                                                              @Valid @RequestBody EmployerProfileRequestDTO requestDTO){
 
         EmployerProfileResponseDTO responseDTO = employerProfileService.createEmployerProfile(userId,requestDTO);
@@ -31,7 +32,7 @@ public class EmployerProfileController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<EmployerProfileResponseDTO> getEmployerProfileByUserId(@PathVariable("userId") Long userId){
+    public ResponseEntity<EmployerProfileResponseDTO> getEmployerProfileByUserId(@PathVariable("userId") UUID userId){
 
         EmployerProfileResponseDTO responseDTO = employerProfileService.getEmployerProfileByUserId(userId);
 
@@ -47,7 +48,7 @@ public class EmployerProfileController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<EmployerProfileResponseDTO> updateEmployerProfile(@PathVariable("userId") Long userId,@Valid @RequestBody EmployerProfileRequestDTO requestDTO){
+    public ResponseEntity<EmployerProfileResponseDTO> updateEmployerProfile(@PathVariable("userId") UUID userId,@Valid @RequestBody EmployerProfileRequestDTO requestDTO){
 
         EmployerProfileResponseDTO responseDTO = employerProfileService.updateEmployerProfile(userId,requestDTO);
 
@@ -55,7 +56,7 @@ public class EmployerProfileController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteEmployerProfile(@PathVariable("userId") Long userId){
+    public ResponseEntity<String> deleteEmployerProfile(@PathVariable("userId") UUID userId){
 
         employerProfileService.deleteEmployerProfile(userId);
 

@@ -3,20 +3,13 @@ package com.prakshit.jobportalsystem.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
+;
 
 @Entity
 @Table(name = "employer_profiles")
 @Getter
 @Setter
-public class EmployerProfile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class EmployerProfile extends BaseModel {
 
     @Column(name = "company_name", nullable = false, length = 150)
     private String companyName;
@@ -28,16 +21,10 @@ public class EmployerProfile {
     private String contactNumber;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)     //one to one relation with user and employerProfile
-    @JoinColumn(name = "user_id",nullable = false ,unique = true ,  //explicitly saying to join column user_id
+    @JoinColumn(name = "user_id",referencedColumnName = "id",columnDefinition = "BINARY(16)",
+            nullable = false ,unique = true ,               //explicitly saying to join column user_id,
     foreignKey = @ForeignKey(name = "fk_employer_user"))
     private User user;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at",nullable = false)
-    private LocalDateTime updatedAt;
 
 }

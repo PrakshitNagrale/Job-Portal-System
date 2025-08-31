@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class EmployerProfileServiceImpl implements EmployerProfileService {
@@ -27,7 +28,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
 
     //to create employer profile
     @Override
-    public EmployerProfileResponseDTO createEmployerProfile(Long userId, EmployerProfileRequestDTO requestDTO) {
+    public EmployerProfileResponseDTO createEmployerProfile(UUID userId, EmployerProfileRequestDTO requestDTO) {
 
         //1.first check userId is present in user table
         User  user = userRepository.findById(userId)
@@ -49,7 +50,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
 
     //to get by employer by userId
     @Override
-    public EmployerProfileResponseDTO getEmployerProfileByUserId(Long userId) {
+    public EmployerProfileResponseDTO getEmployerProfileByUserId(UUID userId) {
 
         //1. check userId is valid, if yes then give employer profile
        EmployerProfile employerProfile =  employerProfileRepository.findByUserId(userId)
@@ -78,7 +79,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
 
     //to update employer profile
     @Override
-    public EmployerProfileResponseDTO updateEmployerProfile(Long userId, EmployerProfileRequestDTO requestDTO) {
+    public EmployerProfileResponseDTO updateEmployerProfile(UUID userId, EmployerProfileRequestDTO requestDTO) {
 
         //1. check user id is valid,if yes get employer profile
         EmployerProfile employerProfile = employerProfileRepository.findByUserId(userId)
@@ -96,7 +97,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
 
     // to delete employer profile
     @Override
-    public void deleteEmployerProfile(Long userId) {
+    public void deleteEmployerProfile(UUID userId) {
 
         //1. find employer profile by userId
         EmployerProfile employerProfile = employerProfileRepository.findByUserId(userId)
