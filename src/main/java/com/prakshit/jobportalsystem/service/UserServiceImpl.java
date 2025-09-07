@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService{
         if(userRepository.existsByEmail(userRequestDTO.getEmail())){
             throw new EmailAlreadyExistsException("Email Already Registered! Please Provide different Email.");
         }
-
         User user =   UserEntityDTOMapper.convertUserRequestDTOToUser(userRequestDTO); //converting request ot user
 
         User savedUser = userRepository.save(user); //saving user to db
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDTO getUserById(UUID id) {
+    public UserResponseDTO getUserById(UUID id) {       // to get user by id
 
 //        Optional<User> optionalUser = userRepository.findById(id);
 //        if (optionalUser.isEmpty()) {
@@ -71,11 +70,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponseDTO updateUser(UUID id, UserRequestDTO userRequestDTO) { //to update user
 
-       // getting user,if id does not exist throw exception
+       // 1.getting user,if id does not exist throw exception
         User user =  userRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("User does Not Exists with Id "+id));
 
-        //check if the email is already present
+        //2.check if the email is already present
         if(!user.getEmail().equals(userRequestDTO.getEmail())){  //if both the email is different,then find if email is already present
             Optional<User> existingUser = userRepository.findByEmail(userRequestDTO.getEmail());
 
@@ -83,18 +82,18 @@ public class UserServiceImpl implements UserService{
                 throw new EmailAlreadyExistsException("Email Already Exists!");
             }
         }
-        //updating all the fields
+        //3.updating all the fields
         user.setName(userRequestDTO.getName());
         user.setEmail(userRequestDTO.getEmail());
         user.setPassword(userRequestDTO.getPassword());
         user.setUserRole(userRequestDTO.getUserRole());
 
-       User savedUser =  userRepository.save(user); //saving to db
-       return UserEntityDTOMapper.convertUserToUserResponseDTO(savedUser); //converting to response
+       User savedUser =  userRepository.save(user); //4.saving to db
+       return UserEntityDTOMapper.convertUserToUserResponseDTO(savedUser); //5.converting to response
     }
 
     @Override
-    public void deleteUser(UUID id) {
+    public void deleteUser(UUID id) {   // to delete user
 
         //find the user is present or not
         User user = userRepository.findById(id)

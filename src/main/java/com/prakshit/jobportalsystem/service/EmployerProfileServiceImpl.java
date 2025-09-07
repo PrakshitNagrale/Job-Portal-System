@@ -34,7 +34,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
         User  user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User doest not found with userId: "+userId));
 
-        //2.check this employee with this userId  is already present in employee table
+        //2.check this employer with this userId  is already present in employer table
        if(employerProfileRepository.existsByUserId(userId)){
            throw new EmployerProfileAlreadyExistsException("Employer Profile Already Exists for userId: "+userId);
        }
@@ -67,7 +67,7 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
         //1. find all employer profiles
         List<EmployerProfile> employerProfiles = employerProfileRepository.findAll();
 
-        //2.Iterate on employerProfiles and convert to response list
+        //2.create Array list & Iterate on employerProfiles and convert to response list
         List<EmployerProfileResponseDTO> responseDTOList = new ArrayList<>();
 
         for(EmployerProfile employerProfile : employerProfiles){
@@ -90,7 +90,8 @@ public class EmployerProfileServiceImpl implements EmployerProfileService {
         employerProfile.setContactNumber(requestDTO.getContactNumber());
         employerProfile.setCompanyWebsite(requestDTO.getCompanyWebsite());
 
-        EmployerProfile updatedEmployee = employerProfileRepository.save(employerProfile); //save in db
+        //3.save in db
+        EmployerProfile updatedEmployee = employerProfileRepository.save(employerProfile);
 
         return EmployerEntityDTOMapper.convertToEmployerResponse(updatedEmployee);
     }

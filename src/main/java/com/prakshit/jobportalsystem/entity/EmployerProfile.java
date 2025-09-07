@@ -22,7 +22,7 @@ public class EmployerProfile extends BaseModel {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)     //one to one relation with user and employerProfile
     @JoinColumn(name = "user_id",referencedColumnName = "id",columnDefinition = "BINARY(16)",
-            nullable = false ,unique = true ,               //explicitly saying to join column user_id,
+            nullable = false ,unique = true ,               //explicitly saying to join column user_id,which is UUID
     foreignKey = @ForeignKey(name = "fk_employer_user"))
     private User user;
 

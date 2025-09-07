@@ -24,6 +24,7 @@ public class UserRequestDTO {
     private String password;
 
 
+
     @NotNull(message = "Role is required")
     private UserRole userRole;
 

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class UserResponseDTO {
 
-    private UUID id;
+    private UUID userId;
     private String name;
     private String email;
     private UserRole userRole;

@@ -25,7 +25,7 @@ public class UserControllerExceptionHandler {
         return new ResponseEntity<>(exceptionResponseDTO , HttpStatus.CONFLICT);
     }
 
-    //to handle all the validations errors(ex.@notnull,@Email)
+    //to handle all the @Valid validations errors(ex.@notnull,@Email)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationErrors(MethodArgumentNotValidException ex){
 
@@ -50,6 +50,7 @@ public class UserControllerExceptionHandler {
         return new ResponseEntity<>(exceptionResponseDTO,HttpStatus.BAD_REQUEST);
     }
 
+    //to handle User not found exception
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ExceptionResponseDTO> handleResourceNotFoundException(ResourceNotFoundException exception){
 
@@ -60,7 +61,7 @@ public class UserControllerExceptionHandler {
     }
 
 
-    //to handle EmployerProfileAlreadyExistsException
+    //to handle EmployerProfileAlreadyExistsException  & ApplicantProfileAlreadyExistsException
     @ExceptionHandler(ProfileAlreadyExistsException.class)
     public ResponseEntity<ExceptionResponseDTO> handleProfileAlreadyExists(ProfileAlreadyExistsException exception){
 

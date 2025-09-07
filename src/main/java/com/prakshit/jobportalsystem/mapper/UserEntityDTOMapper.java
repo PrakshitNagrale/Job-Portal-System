@@ -24,7 +24,7 @@ public class UserEntityDTOMapper {
 
         UserResponseDTO userResponseDTO = new UserResponseDTO();
 
-        userResponseDTO.setId(user.getId());
+        userResponseDTO.setUserId(user.getId());
         userResponseDTO.setName(user.getName());
         userResponseDTO.setEmail(user.getEmail());
         userResponseDTO.setUserRole(user.getUserRole());
