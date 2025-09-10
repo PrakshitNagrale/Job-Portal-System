@@ -3,7 +3,8 @@ package com.prakshit.jobportalsystem.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-;
+;import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "employer_profiles")
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class EmployerProfile extends BaseModel {
 
-    @Column(name = "company_name", nullable = false, length = 150)
+    @Column(name = "company_name", nullable = false, length = 150)  // length = 150 means hibernate will create in db as VARCHAR(150)
     private String companyName;
 
     @Column(name = "company_website", nullable = false, length = 255)
@@ -25,6 +26,12 @@ public class EmployerProfile extends BaseModel {
             nullable = false ,unique = true ,               //explicitly saying to join column user_id,which is UUID
     foreignKey = @ForeignKey(name = "fk_employer_user"))
     private User user;
+
+    @OneToMany(mappedBy = "employerProfile",cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<Job> jobs = new ArrayList<>();                       // empty array list to prevent NullPointerException
+                                                                            // CascadeType.ALL-> if job  employer is updated/deleted the job we also update/delete
+                                                                            //orphanRemoval = true-> if the job is deleted from employer list it will we deleted from database
+
 
 
 }

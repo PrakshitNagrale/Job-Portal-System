@@ -22,7 +22,7 @@ public class User extends BaseModel{
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)  //to store enum in db
+    @Enumerated(EnumType.STRING)  //to store enum values as "text" in db
     @Column(nullable = false)
     private UserRole  userRole;
 

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class ApplicantProfile extends BaseModel{
             joinColumns = @JoinColumn(name = "applicant_id")
     )
     @Column(name = "skills",nullable = false, length = 100)
-    private List<String> skills;
+    private List<String> skills =  new ArrayList<>();  // we are initializing ArrayList to handle NullPointerException, we have already taken care of it with validation side ApplicantRequestDto
 
 
     @Column(name = "experience_years",nullable = false)

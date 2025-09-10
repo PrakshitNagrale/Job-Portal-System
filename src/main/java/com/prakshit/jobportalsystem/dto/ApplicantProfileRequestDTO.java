@@ -18,7 +18,7 @@ public class ApplicantProfileRequestDTO {
 
     //field is a List<String> so @NotNull
     @NotNull(message = "Skills are required! Insert each skill comma separated")        //-> if someone did not put skill attribute in request
-    @Size(min = 1,message = "At least one skill is required! Insert each skill comma separated")  //-> if skill is empty ->[ ]
+    @Size(min = 1,message = "At least one skill is required! Insert each skill comma separated")  //-> if skill is empty ->[ ], then it will say this
     private List<@NotBlank(message = "Skill can not to empty") String> skills;              //->no blank entries inside the list-> if someone puts [""] it throws error
 
     @NotNull(message = "Experience years is required! For freshers, put 0")
