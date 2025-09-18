@@ -25,7 +25,7 @@ public class UserControllerExceptionHandler {
         return new ResponseEntity<>(exceptionResponseDTO , HttpStatus.CONFLICT);
     }
 
-    //to handle all the @Valid validations errors(ex.@notnull,@Email)
+    //to handle all the @Valid validations errors(ex.@notnull,@Email,@NotBlank,etc)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationErrors(MethodArgumentNotValidException ex){
 
@@ -41,11 +41,13 @@ public class UserControllerExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionResponseDTO> handleInvalidEnum(HttpMessageNotReadableException ex){
 
-        String message = "Invalid Request! Check Enum Fields and Values";
-
+//        String message = "Invalid Request! Check Enum Fields and Values";
+//            String s[] = ex.getMessage().split(":");
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
 
-                message, HttpStatus.BAD_REQUEST.value());
+               ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+
+
 
         return new ResponseEntity<>(exceptionResponseDTO,HttpStatus.BAD_REQUEST);
     }

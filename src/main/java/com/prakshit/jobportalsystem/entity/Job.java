@@ -58,4 +58,19 @@ public class Job extends BaseModel{
             foreignKey = @ForeignKey(name = "fk_job_employer")   // every job is related to one employer
     )
     private EmployerProfile employerProfile;
+
+    //@OneToMany -> One Job  can have multiple job applications
+    @OneToMany(mappedBy = "job",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<JobApplication> jobApplications = new ArrayList<>();    // empty array list to prevent NullPointerException
+
+
 }
+
+
+
+
+
+//mappedBy → tells JPA it is already mapped by JobApplication.job so don't create extra column
+//cascade = CascadeType.ALL → ensures if a Job is deleted, its applications also gets deleted
+//orphanRemoval = true → ensures if you remove a JobApplication from the list, it also gets deleted from DB.
+//fetch = FetchType.LAZY -> JobApplications are fetched only when you call job.getApplications()

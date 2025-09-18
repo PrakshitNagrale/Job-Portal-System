@@ -50,5 +50,16 @@ public class ApplicantProfile extends BaseModel{
           foreignKey = @ForeignKey(name = "fk_applicant_user"))
     private User user;
 
+//@OneToMany -> One Applicant profile can have multiple job applications
+   @OneToMany(mappedBy = "applicantProfile", cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+   private List<JobApplication> jobApplications = new ArrayList<>();
 
 }
+
+
+
+
+//mappedBy → tells JPA it is already mapped by JobApplication.applicantProfile so don't create extra column
+//cascade = CascadeType.ALL → ensures if a Job is deleted, its applications also gets deleted
+//orphanRemoval = true → ensures if you remove a JobApplication from the list, it also gets deleted from DB.
+//fetch = FetchType.LAZY -> JobApplications are fetched only when you call applicant.getApplications()
