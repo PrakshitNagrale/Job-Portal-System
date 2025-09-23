@@ -2,6 +2,7 @@ package com.prakshit.jobportalsystem.service;
 
 import com.prakshit.jobportalsystem.dto.UserRequestDTO;
 import com.prakshit.jobportalsystem.dto.UserResponseDTO;
+import com.prakshit.jobportalsystem.dto.UserUpdateDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public interface UserService {
 
     List<UserResponseDTO> getAllUser();
 
-   UserResponseDTO  updateUser(UUID id,UserRequestDTO userRequestDTO);
+   UserResponseDTO  updateUser(UUID id, UserUpdateDTO userUpdateDTO);
 
     void deleteUser(UUID id);
 

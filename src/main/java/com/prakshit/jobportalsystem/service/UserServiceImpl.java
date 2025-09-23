@@ -2,11 +2,13 @@ package com.prakshit.jobportalsystem.service;
 
 import com.prakshit.jobportalsystem.dto.UserRequestDTO;
 import com.prakshit.jobportalsystem.dto.UserResponseDTO;
+import com.prakshit.jobportalsystem.dto.UserUpdateDTO;
 import com.prakshit.jobportalsystem.entity.User;
 import com.prakshit.jobportalsystem.exceptions.EmailAlreadyExistsException;
 import com.prakshit.jobportalsystem.exceptions.ResourceNotFoundException;
 import com.prakshit.jobportalsystem.mapper.UserEntityDTOMapper;
 import com.prakshit.jobportalsystem.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,10 +20,12 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     //constructor injection
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,6 +36,9 @@ public class UserServiceImpl implements UserService{
             throw new EmailAlreadyExistsException("Email Already Registered! Please Provide different Email.");
         }
         User user =   UserEntityDTOMapper.convertUserRequestDTOToUser(userRequestDTO); //converting request ot user
+
+        //to encode the password with password encoder/ BCryptPasswordEncoder
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
 
         User savedUser = userRepository.save(user); //saving user to db
 
@@ -68,28 +75,35 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDTO updateUser(UUID id, UserRequestDTO userRequestDTO) { //to update user
+    public UserResponseDTO updateUser(UUID id, UserUpdateDTO userUpdateDTO) { //to update user
 
        // 1.getting user,if id does not exist throw exception
         User user =  userRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("User does Not Exists with Id "+id));
 
         //2.check if the email is already present
-        if(!user.getEmail().equals(userRequestDTO.getEmail())){  //if both the email is different,then find if email is already present
-            Optional<User> existingUser = userRepository.findByEmail(userRequestDTO.getEmail());
+        if(userUpdateDTO.getEmail()!=null && !user.getEmail().equals(userUpdateDTO.getEmail())){  //if both the email is different,then find if email is already present
+            Optional<User> existingUser = userRepository.findByEmail(userUpdateDTO.getEmail());
 
             if(existingUser.isPresent() && !existingUser.get().getId().equals(id)){  //if email is present and both are different user then throw error
                 throw new EmailAlreadyExistsException("Email Already Exists!");
             }
+            user.setEmail(userUpdateDTO.getEmail()); //if everything correct set email
         }
         //3.updating all the fields
-        user.setName(userRequestDTO.getName());
-        user.setEmail(userRequestDTO.getEmail());
-        user.setPassword(userRequestDTO.getPassword());
-        user.setUserRole(userRequestDTO.getUserRole());
-
-       User savedUser =  userRepository.save(user); //4.saving to db
-       return UserEntityDTOMapper.convertUserToUserResponseDTO(savedUser); //5.converting to response
+        if(userUpdateDTO.getName()!=null){
+            user.setName(userUpdateDTO.getName());
+        }
+        if(userUpdateDTO.getPassword()!=null && !userUpdateDTO.getPassword().isBlank()){
+            user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword())); //encode password and then save in db
+        }
+        if (userUpdateDTO.getUserRole()!=null){
+            user.setUserRole(userUpdateDTO.getUserRole());
+        }
+        //4.saving to db
+       User savedUser =  userRepository.save(user);
+        //5.converting to response
+       return UserEntityDTOMapper.convertUserToUserResponseDTO(savedUser);
     }
 
     @Override

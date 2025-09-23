@@ -2,6 +2,7 @@ package com.prakshit.jobportalsystem.controller;
 
 import com.prakshit.jobportalsystem.dto.UserRequestDTO;
 import com.prakshit.jobportalsystem.dto.UserResponseDTO;
+import com.prakshit.jobportalsystem.dto.UserUpdateDTO;
 import com.prakshit.jobportalsystem.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -50,9 +51,9 @@ public class UserController {
     //to update the user
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(@PathVariable("id") UUID id,
-                                                      @Valid @RequestBody UserRequestDTO userRequestDTO){
+                                                      @Valid @RequestBody UserUpdateDTO userUpdateDTO){
 
-       UserResponseDTO updatedUser =  userService.updateUser(id,userRequestDTO);
+       UserResponseDTO updatedUser =  userService.updateUser(id, userUpdateDTO);
 
        return  ResponseEntity.ok(updatedUser);
     }

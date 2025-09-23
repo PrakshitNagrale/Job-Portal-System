@@ -26,7 +26,7 @@ public class JobController {
     }
 
     //to create job
-    @PostMapping("/jobs/{employerId}")
+    @PostMapping("/jobs/employerId/{employerId}")
     public ResponseEntity<JobResponseDTO> createJob(@PathVariable("employerId")UUID employerId, @Valid @RequestBody JobRequestDTO requestDTO){
 
         JobResponseDTO responseDTO = jobService.createJob(employerId,requestDTO);
@@ -45,7 +45,7 @@ public class JobController {
     }
 
     //to get all jobs from employer
-    @GetMapping("/jobs/employer/{employerId}")
+    @GetMapping("/jobs/employerId/{employerId}")
     public ResponseEntity<List<JobResponseDTO>> getJobsByEmployer(@PathVariable("employerId") UUID employerId){
         List<JobResponseDTO> jobList = jobService.getJobsByEmployer(employerId);
 
@@ -130,7 +130,7 @@ public class JobController {
     //to search jobs by last date to apply
     @GetMapping("jobs/date")
     public ResponseEntity<List<JobResponseDTO>> searchByLastDateToApply(@RequestParam("lastDate")LocalDateTime  lastDate){
-
+                                                                                                                                    //localhost:8080/jobs/date?lastDate=2025-09-13T11:00:00.123
         List<JobResponseDTO> jobList = jobService.getJobsByLastDateToApply(lastDate);
 
         return ResponseEntity.ok(jobList);
@@ -140,7 +140,7 @@ public class JobController {
     @GetMapping("jobs/experience")
     public ResponseEntity<List<JobResponseDTO>> searchJobByExperienceRange(@RequestParam("minExperience") int minExperience,
                                                                            @RequestParam("maxExperience") int maxExperience){
-
+                                                                                                                                //localhost:8080/jobs/experience?minExperience=10&maxExperience=18
         List<JobResponseDTO> jobList = jobService.getJobsByExperienceRange(minExperience,maxExperience);
 
         return ResponseEntity.ok(jobList);

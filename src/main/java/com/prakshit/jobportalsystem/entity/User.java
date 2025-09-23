@@ -17,7 +17,7 @@ public class User extends BaseModel{
     private String name;
 
     @Column(unique = true , nullable = false)
-    private String email;
+    private String email;               //email is unique, user will login with email & password
 
     @Column(nullable = false)
     private String password;

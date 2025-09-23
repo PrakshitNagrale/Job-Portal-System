@@ -22,7 +22,7 @@ public class ApplicantProfileController {
     }
 
     //to create Applicant Profile
-    @PostMapping("/applicant/{userId}")
+    @PostMapping("/applicant/userId/{userId}")
     public ResponseEntity<ApplicantProfileResponseDTO> createApplicantProfile(@PathVariable("userId")UUID userId,
                                                                               @Valid @RequestBody ApplicantProfileRequestDTO requestDTO){
 
