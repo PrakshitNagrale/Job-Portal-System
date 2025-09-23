@@ -145,6 +145,11 @@ Employers can post jobs, applicants can apply, withdraw, and track application s
 - "location": "Remote"
 }
 
+## Project Report
+
+Download the full project report (PDF):  
+[JobPortalSystem_ProjectReport.pdf](./docs/JobPortalSystem_ProjectReport.pdf)
+
 ## Author
 
 Prakshit Nagrale
